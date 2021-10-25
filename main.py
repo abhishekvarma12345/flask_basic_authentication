@@ -1,5 +1,6 @@
 import pymongo
 from flask import Flask, request, render_template, url_for, redirect
+from decouple import config
 
 app = Flask(__name__)
 
@@ -18,7 +19,9 @@ def home():
 def signup():
     email = request.form["emailId"]
     password = request.form["password"]
-    DB_CON_URL = "mongodb://localhost:27017/"
+    user = config('user',default='')
+    passwd = config('passwd',default='')
+    DB_CON_URL = f"mongodb+srv://{user}:{passwd}@cluster0.nnfqq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
     try:
         database = pymongo.MongoClient(DB_CON_URL)
         print("Database connection successful!")
@@ -53,7 +56,9 @@ def login():
     else:
         email = request.form["emailId"]
         password = request.form["password"]
-        DB_CON_URL = "mongodb://localhost:27017/"
+        user = config('user', default='')
+        passwd = config('passwd', default='')
+        DB_CON_URL = f"mongodb+srv://{user}:{passwd}@cluster0.nnfqq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
         try:
             database = pymongo.MongoClient(DB_CON_URL)
             print("Database connection successful!")
