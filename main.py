@@ -14,7 +14,7 @@ def home():
         if action == "signup":
             return render_template("signup.html")
         else:
-            return render_template("logi.html")
+            return render_template("login.html")
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -55,9 +55,9 @@ def failure():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'GET':
-        return render_template("logi.html")
+        return render_template("login.html")
     else:
-        email = request.form["emailId"]
+        email = request.form["email"]
         password = request.form["password"]
         # user = config('user', default='')
         # passwd = config('passwd', default='')
