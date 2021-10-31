@@ -14,11 +14,12 @@ def home():
         if action == "signup":
             return render_template("signup.html")
         else:
-            return render_template("login.html")
+            return render_template("logi.html")
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    email = request.form["emailId"]
+    fullname = request.form["fullname"]
+    email = request.form["email"]
     password = request.form["password"]
     # user = config('user',default='')
     # passwd = config('passwd',default='')
@@ -34,7 +35,7 @@ def signup():
         cur = coll_name.find({"email": email})
 
         if cur.count() == 0:
-            coll_name.insert_one({"email": email, "password": password})
+            coll_name.insert_one({"fullname": fullname,"email": email, "password": password})
             print("record inserted successfully")
             return redirect(url_for('success'))
         else:
@@ -54,7 +55,7 @@ def failure():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'GET':
-        return render_template("login.html")
+        return render_template("logi.html")
     else:
         email = request.form["emailId"]
         password = request.form["password"]
